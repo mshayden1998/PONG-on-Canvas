@@ -12,7 +12,12 @@ let ballSizeX = 20;
 let ballSizeY = 20;
 let ballDirX = 2;
 let ballDirY = -2;
-let plaPosY = canvas.height / 2 - 50;
+let pl0PosX = 10;
+let pl0PosY = canvas.height / 2;
+let pl0SizeX = 20;
+let pl0SizeY = 100;
+let pl1PosX = canvas.width - pl0SizeX;
+let pl1PosY = canvas.height / 2;
 const errorMargin = 4;
 // User input.
 let upPressed = false;
@@ -33,7 +38,7 @@ function drawABall(color, posX, posY, sizeX, sizeY) {
 
 function drawRacket(color, posX, posY) {
 	ctx.fillStyle = color;
-	ctx.fillRect(posX, posY, 20, 100);
+	ctx.fillRect(posX, posY, pl0SizeX, pl0SizeY);
 }
 
 
@@ -47,15 +52,16 @@ function drawScore(value, posX, direction = 'ltr') {
 
 
 function process() {
+	// Clears the canvas for a new frame.
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	// Draws a cosmetic line in the middle of the screen.
 	ctx.fillStyle = 'gray';
-	ctx.fillRect(canvas.width / 2, 20, 2, canvas.height - 40);
+	ctx.fillRect(canvas.width / 2, 20, 2, canvas.height - 40); // Line X position, Line Y start, Line width, Line Y end.
 	drawABall('#58c47a', ballPosX, ballPosY, 20, 20);
-    drawRacket('white', 10, plaPosY); // Player0 (at left side).
+    drawRacket('white', pl0PosX, pl0PosY); // Player0 (at left side).
 	drawRacket('white', canSizeX - 30, 10); // Player1 (at right side).
 	drawScore(pl0CurrentScore, 40); // Player0's score;
 	drawScore(pl1CurrentScore, canvas.width - 40, 'rtl'); // Player1's score;
-	// Draws a cosmetic line in the middle of the screen.
 	// Bouncing off the top and bottom and applies a new score if necessary.
 	if (ballPosX >= canvas.width - ballSizeX) {
 		pl0CurrentScore++;
@@ -75,9 +81,9 @@ function process() {
 	ballPosY += ballDirY;
 	// Moves the rackets with User's Input.
 	if (upPressed) {
-		plaPosY = Math.max(plaPosY - 7, 0);
+		pl0PosY = Math.max(pl0PosY - 7, 0);
 	} else if (downPressed) {
-		plaPosY = Math.min(plaPosY + 7, canvas.height - 100);
+		pl0PosY = Math.min(pl0PosY + 7, canvas.height - 100);
 	}
 }
 
