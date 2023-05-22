@@ -10,8 +10,8 @@ let ballPosX = canvas.width / 2;
 let ballPosY = canvas.height / 2;
 let ballSizeX = 20;
 let ballSizeY = 20;
-let ballDirX = 2;
-let ballDirY = -2;
+let ballDirX = 4;
+let ballDirY = -4;
 let pl0PosX = 10;
 let pl0PosY = canvas.height / 2;
 let pl0SizeX = 20;
@@ -20,6 +20,8 @@ let pl1PosX = canvas.width - pl0SizeX;
 let pl1PosY = canvas.height / 2;
 const errorMargin = 4;
 // User input.
+let wPressed = false;
+let sPressed = false;
 let upPressed = false;
 let downPressed = false;
 // Interface.
@@ -62,6 +64,15 @@ function process() {
 	drawRacket('white', canSizeX - 30, 10); // Player1 (at right side).
 	drawScore(pl0CurrentScore, 40); // Player0's score;
 	drawScore(pl1CurrentScore, canvas.width - 40, 'rtl'); // Player1's score;
+	// Bounces the ball off from the rackets.
+	// For Player 0 (left)
+	if (ballPosX < pl0PosX + pl0SizeX && ballPosY > pl0PosY && ballPosY < pl0PosY + pl0SizeY) {
+		ballDirX = -ballDirX;
+	}
+	// For Player 1 (right)
+	if (ballPosX + ballSizeX > pl1PosX && ballPosY > pl1PosY && ballPosY < pl1PosY + pl0SizeY) {
+		ballDirX = -ballDirX;
+	}
 	// Bouncing off the top and bottom and applies a new score if necessary.
 	if (ballPosX >= canvas.width - ballSizeX) {
 		pl0CurrentScore++;
