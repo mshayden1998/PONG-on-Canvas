@@ -1,5 +1,5 @@
 class Element {
-    constructor(posX = 0, posY = 0) {
+    constructor(posX = 10, posY = 10) {
         this.posX = posX;
         this.posY = posY;
     }
